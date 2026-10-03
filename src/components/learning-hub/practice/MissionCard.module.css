@@ -1,0 +1,147 @@
+.card {
+  background-color: white;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #93C5FD;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.iconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0A2540;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #64748B;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.detailRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.detailIcon {
+  color: #94A3B8;
+}
+
+.detailText {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0A2540;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  border-top: 1px solid #F1F5F9;
+}
+
+.progressArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.notStarted {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.progressBarBg {
+  flex: 1;
+  height: 6px;
+  background-color: #F1F5F9;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  max-width: 80px;
+}
+
+.progressBarFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #3B82F6;
+  border-radius: 3px;
+}
+
+.progressText {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0A2540;
+}
+
+.actionBtn {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: white;
+  background-color: #3B82F6;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.actionBtn:hover {
+  background-color: #2563EB;
+}

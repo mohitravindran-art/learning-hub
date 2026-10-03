@@ -1,0 +1,411 @@
+/* AssessmentCard.module.css */
+.card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 24px rgba(8, 102, 232, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.iconBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.iconAndroid {
+  background-color: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+
+.iconDoc {
+  background-color: #EFF6FF;
+  color: #0866E8;
+  border: 1px solid #BFDBFE;
+}
+
+.iconVideo {
+  background-color: #FDF2F8;
+  color: #DB2777;
+  border: 1px solid #FBCFE8;
+}
+
+.iconCode {
+  background-color: #F5F3FF;
+  color: #7C3AED;
+  border: 1px solid #DDD6FE;
+}
+
+.iconMessage {
+  background-color: #FFFBEB;
+  color: #D97706;
+  border: 1px solid #FDE68A;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.assessmentName {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #64748B;
+  flex-wrap: wrap;
+}
+
+.dotSeparator {
+  color: #CBD5E1;
+}
+
+.singleLabel {
+  font-weight: 500;
+  color: #64748B;
+}
+
+.multiLabelBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #EFF6FF;
+  color: #0866E8;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 6px;
+  border: 1px solid #BFDBFE;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.multiLabelBadge:hover {
+  background-color: #DBEAFE;
+}
+
+.infoIcon {
+  color: #3B82F6;
+}
+
+/* Popover Dropdown */
+.popoverAnchor {
+  position: relative;
+  display: inline-block;
+}
+
+.popoverDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  min-width: 240px;
+  max-width: 320px;
+}
+
+.popoverTitle {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #0F172A;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 4px;
+}
+
+.popoverList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.popoverList li {
+  font-size: 0.78rem;
+  color: #334155;
+  line-height: 1.35;
+  display: flex;
+  align-items: flex-start;
+}
+
+.popoverList li::before {
+  content: '•';
+  color: #0866E8;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.statusNotStarted {
+  background-color: #F1F5F9;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+}
+
+.statusInProgress {
+  background-color: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FCD34D;
+}
+
+.statusUpcoming {
+  background-color: #EDE9FE;
+  color: #6D28D9;
+  border: 1px solid #DDD6FE;
+}
+
+.statusCompleted {
+  background-color: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+}
+
+/* Description */
+.descriptionText {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.83rem;
+  color: #475569;
+  line-height: 1.48;
+  margin: 0;
+}
+
+/* Specs Chips */
+.specsGrid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.specChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.specIcon {
+  color: #64748B;
+}
+
+.levelDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #0866E8;
+}
+
+/* Progress bar */
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #F8FAFC;
+  border-radius: 8px;
+  padding: 8px 10px;
+  border: 1px solid #E2E8F0;
+}
+
+.progressTextRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.progressPercent {
+  color: #0866E8;
+  font-weight: 700;
+}
+
+.progressBarBg {
+  height: 6px;
+  background-color: #E2E8F0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6 0%, #0866E8 100%);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* History Metrics Box */
+.historyMetricsBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+  border: 1px solid #DBEAFE;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.historyMetric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.historyMetricLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.historyMetricScore {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.historyMetricVal {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.historyDivider {
+  width: 1px;
+  height: 28px;
+  background-color: #CBD5E1;
+}
+
+/* Card Footer */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #F1F5F9;
+  padding-top: 12px;
+  margin-top: 2px;
+}
+
+.footerDate {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.dateIcon {
+  color: #94A3B8;
+}
+
+/* Action Buttons */
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  border: none;
+  white-space: nowrap;
+}
+
+.btnPrimary {
+  background-color: #0866E8;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(8, 102, 232, 0.25);
+}
+
+.btnPrimary:hover {
+  background-color: #0652BA;
+  transform: translateX(1px);
+}
+
+.btnFeedback {
+  background-color: #EFF6FF;
+  color: #0866E8;
+  border: 1.5px solid #BFDBFE;
+}
+
+.btnFeedback:hover {
+  background-color: #DBEAFE;
+  border-color: #93C5FD;
+}

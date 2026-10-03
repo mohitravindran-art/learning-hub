@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 10px 0;
+}
+
+.card {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.card:hover:not(.disabled) {
+  border-color: #2563EB;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.card.disabled {
+  cursor: default;
+}
+
+.iconCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.trueCard .iconCircle {
+  background: #ECFDF5;
+  color: #10B981;
+}
+
+.falseCard .iconCircle {
+  background: #FEF2F2;
+  color: #EF4444;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+
+.cardSubtitle {
+  font-size: 12.5px;
+  color: #64748B;
+}
+
+.selectedTrue {
+  border-color: #10B981 !important;
+  background: #F0FDF4 !important;
+}
+
+.selectedTrue .iconCircle {
+  background: #10B981;
+  color: white;
+}
+
+.selectedFalse {
+  border-color: #EF4444 !important;
+  background: #FEF2F2 !important;
+}
+
+.selectedFalse .iconCircle {
+  background: #EF4444;
+  color: white;
+}

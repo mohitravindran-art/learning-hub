@@ -1,0 +1,125 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.summaryCard {
+  background-color: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.summaryTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary, #4b5563);
+  margin-bottom: 1rem;
+}
+
+.summaryValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary, #111827);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.summaryValue svg {
+  color: var(--accent-color, #3b82f6);
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background-color: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.panelTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary, #111827);
+  margin-bottom: 1.5rem;
+}
+
+.performanceItem {
+  margin-bottom: 1.5rem;
+}
+
+.performanceItem:last-child {
+  margin-bottom: 0;
+}
+
+.performanceHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+}
+
+.performanceValue {
+  color: var(--text-secondary, #4b5563);
+}
+
+.barContainer {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-main, #f3f4f6);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background-color: var(--success-color, #22c55e);
+  border-radius: 9999px;
+}
+
+.barFill.warning {
+  background-color: var(--accent-color, #f97316); /* orange */
+}
+
+.barFill.danger {
+  background-color: var(--error-color, #ef4444);
+}
+
+.chartPlaceholder {
+  width: 100%;
+  height: 250px;
+  background-color: var(--bg-main, #f9fafb);
+  border-radius: 8px;
+  border: 1px dashed var(--border-color, #d1d5db);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary, #9ca3af);
+  font-size: 0.875rem;
+  font-weight: 600;
+}

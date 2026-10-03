@@ -1,0 +1,358 @@
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.8125rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.tableCard {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  overflow-x: auto;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+
+.th {
+  background-color: #F8FAFC;
+  color: #475569;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 1px solid #E2E8F0;
+  white-space: nowrap;
+}
+
+.thCenter {
+  text-align: center;
+}
+
+.thRight {
+  text-align: right;
+}
+
+.tr {
+  border-bottom: 1px solid #F1F5F9;
+  transition: background-color 0.15s ease;
+}
+
+.tr:hover {
+  background-color: #F8FAFD;
+}
+
+.td {
+  padding: 14px 16px;
+  color: #334155;
+  vertical-align: middle;
+  position: relative;
+}
+
+.nameCell {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.tdCenter {
+  text-align: center;
+}
+
+.tdRight {
+  text-align: right;
+}
+
+.qCountBadge {
+  display: inline-block;
+  background-color: #F1F5F9;
+  color: #1E293B;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.levelBadge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.725rem;
+  font-weight: 600;
+}
+
+.level_warm-up {
+  background-color: #ECFDF5;
+  color: #059669;
+}
+
+.level_challenge {
+  background-color: #EFF6FF;
+  color: #2563EB;
+}
+
+.level_expert {
+  background-color: #FEF2F2;
+  color: #DC2626;
+}
+
+.progressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.progressText {
+  font-size: 0.725rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.progressTrack {
+  height: 6px;
+  background-color: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressFillBlue {
+  height: 100%;
+  background-color: #0866E8;
+  border-radius: 9999px;
+}
+
+.progressFillGreen {
+  height: 100%;
+  background-color: #10B981;
+  border-radius: 9999px;
+}
+
+.statusCompleted {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #10B981;
+  font-weight: 600;
+}
+
+.statusInProgress {
+  color: #0866E8;
+  font-weight: 600;
+}
+
+.statusNotStarted {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #94A3B8;
+}
+
+.primaryActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #0866E8;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.primaryActionBtn:hover {
+  background-color: #0652BA;
+}
+
+.scoreActionBtn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #F0F6FF;
+  color: #0866E8;
+  border: 1px solid #BFDBFE;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.scoreActionBtn:hover {
+  background-color: #E0ECFB;
+}
+
+/* Hover Popovers for Multiple Chapters & Topics */
+.popoverWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.multiBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  background-color: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 6px;
+  color: #0866E8;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.multiBadge:hover {
+  background-color: #DBEAFE;
+  border-color: #93C5FD;
+}
+
+.singleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  color: #1E293B;
+  font-weight: 500;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.singleBadge:hover {
+  background-color: #EFF6FF;
+  color: #0866E8;
+}
+
+.singleBadge .infoIcon {
+  color: #94A3B8;
+  opacity: 0.7;
+  transition: all 0.15s ease;
+}
+
+.singleBadge:hover .infoIcon {
+  color: #0866E8;
+  opacity: 1;
+}
+
+.infoIcon {
+  color: #3B82F6;
+  flex-shrink: 0;
+}
+
+.popoverBox {
+  position: absolute;
+  left: 0;
+  min-width: 240px;
+  max-width: 320px;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.2), 0 4px 8px -2px rgba(15, 23, 42, 0.08);
+  padding: 12px 14px;
+  z-index: 100;
+  pointer-events: none;
+  animation: popoverFade 0.15s ease-out;
+}
+
+@keyframes popoverFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popoverAbove {
+  bottom: calc(100% + 8px);
+}
+
+.popoverBelow {
+  top: calc(100% + 8px);
+}
+
+.topicPopover {
+  min-width: 280px;
+  max-width: 360px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.popoverHeader {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 4px;
+}
+
+.popoverList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.popoverListItem {
+  font-size: 0.785rem;
+  color: #1E293B;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.topicGroupsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.topicGroupItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groupChapterHeading {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #0866E8;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  display: block;
+}

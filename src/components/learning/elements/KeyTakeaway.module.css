@@ -1,0 +1,25 @@
+.container {
+  background-color: #eff6ff; /* light blue */
+  border-left: 4px solid var(--accent-color, #3b82f6);
+  border-radius: 0 8px 8px 0;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--text-primary, #111827);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.content {
+  font-size: 1rem;
+  color: var(--text-primary, #111827);
+  line-height: 1.6;
+}

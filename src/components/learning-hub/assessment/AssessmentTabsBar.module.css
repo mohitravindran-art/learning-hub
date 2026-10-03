@@ -1,0 +1,128 @@
+/* AssessmentTabsBar.module.css - Compact & Clutter-Free */
+.tabsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #E2E8F0;
+  margin-bottom: 18px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tabGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.18s ease;
+  border-radius: 8px 8px 0 0;
+}
+
+.tabBtn:hover {
+  color: #0866E8;
+  background-color: rgba(8, 102, 232, 0.04);
+}
+
+.tabBtnActive {
+  color: #0866E8;
+  font-weight: 700;
+}
+
+.tabBtnActive::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #0866E8;
+  border-radius: 3px 3px 0 0;
+}
+
+.tabIcon {
+  stroke-width: 2.2;
+}
+
+.countBadge {
+  background-color: #F1F5F9;
+  color: #64748B;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  transition: all 0.18s ease;
+}
+
+.countBadgeActive {
+  background-color: #EFF6FF;
+  color: #0866E8;
+  border: 1px solid #BFDBFE;
+}
+
+/* Compact Controls */
+.controlsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+}
+
+.filterWrapper,
+.sortWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 5px 9px;
+  color: #64748B;
+  transition: all 0.15s ease;
+}
+
+.filterWrapper:hover,
+.sortWrapper:hover {
+  border-color: #CBD5E1;
+}
+
+.filterIcon,
+.sortIcon {
+  color: #64748B;
+}
+
+.controlSelect {
+  border: none;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .tabsBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .controlsGroup {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

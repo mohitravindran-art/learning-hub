@@ -1,0 +1,55 @@
+.sceneContainer {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #EEF5FF; /* Clean light blue background */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 28px 48px;
+  box-sizing: border-box;
+}
+
+.contentContainer {
+  width: 100%;
+  max-width: 1360px; /* Full, space-efficient wide layout without wasted side whitespace */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full bleed styling for illustrated scenario scenes */
+.fullBleedWrapper {
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+.fullBleedContentContainer {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+@media (max-width: 768px) {
+  .sceneWrapper {
+    padding: 16px 14px 32px;
+  }
+}

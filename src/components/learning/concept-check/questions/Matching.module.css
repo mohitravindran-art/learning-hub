@@ -1,0 +1,228 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+}
+
+.subPrompt {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0 0 6px 0;
+}
+
+.svgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Let clicks pass through to cards */
+  z-index: 10;
+}
+
+.connectionLine {
+  fill: none;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  transition: stroke 0.3s ease;
+}
+
+/* Base line color when completed */
+.lineConnected {
+  stroke: #CBD5E1;
+}
+
+/* Temporary active line following cursor */
+.lineActive {
+  stroke: #3B82F6;
+  stroke-width: 3px;
+  stroke-dasharray: 6;
+  animation: dashMove 1s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));
+}
+
+@keyframes dashMove {
+  from { stroke-dashoffset: 12; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Validated states */
+.lineCorrect {
+  stroke: #10B981;
+}
+
+.lineIncorrect {
+  stroke: #EF4444;
+}
+
+
+/* Layout */
+.matchingColumns {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 64px; /* Big gap for SVG lines */
+  width: 100%;
+  position: relative;
+  z-index: 20;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.columnHeader, .columnHeaderRight {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardRow {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Left items have node on the right */
+.leftRow {
+  flex-direction: row;
+}
+
+/* Right items have node on the left */
+.rightRow {
+  flex-direction: row;
+}
+
+.cardContent, .cardContentRight {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1E293B;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.leftRow .cardContent {
+  margin-right: -6px; /* slightly overlap or sit flush with node */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.rightRow .cardContentRight {
+  margin-left: -6px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+
+/* The interactive dot */
+.connectionNode {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px #CBD5E1, 0 2px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  position: relative;
+  z-index: 30;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+/* Increase clickable area of node */
+.connectionNode::after {
+  content: '';
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  border-radius: 50%;
+}
+
+.connectionNode:hover {
+  background: #94A3B8;
+  transform: scale(1.2);
+}
+
+/* When active/dragging */
+.nodeActive {
+  background: #3B82F6;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 5px rgba(59, 130, 246, 0.3);
+  transform: scale(1.1);
+}
+
+/* When successfully matched but not yet validated */
+.nodeMatched {
+  background: #94A3B8;
+}
+
+/* Right node when dragging a left node over it */
+.nodeTarget:hover {
+  background: #3B82F6;
+  transform: scale(1.3);
+}
+
+/* Validated states */
+.nodeCorrect {
+  background: #10B981;
+  box-shadow: 0 0 0 1px #059669;
+}
+
+.nodeIncorrect {
+  background: #EF4444;
+  box-shadow: 0 0 0 1px #B91C1C;
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.nodeIcon {
+  color: #FFFFFF;
+  margin-top: 0.5px;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-2px, 0, 0); }
+  40%, 60% { transform: translate3d(2px, 0, 0); }
+}
+
+.statusFooter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.matchCount {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+  background: #F1F5F9;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.allMatchedBannerPending {
+  font-size: 13px;
+  font-weight: 500;
+  color: #D97706;
+}

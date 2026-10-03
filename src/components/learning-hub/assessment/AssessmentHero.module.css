@@ -1,0 +1,238 @@
+/* AssessmentHero.module.css - Compact, Colorful, Friendly */
+.heroWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+/* 1. Compact Page Header */
+.headerArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titleIconBadge {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0866E8 0%, #2563EB 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(8, 102, 232, 0.22);
+  flex-shrink: 0;
+}
+
+.awardIcon {
+  stroke-width: 2.2;
+}
+
+.titleTextGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.pageSubtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  color: #64748B;
+  margin: 2px 0 0 0;
+  line-height: 1.35;
+}
+
+/* 2. Colorful, Friendly, Compact Banner */
+.bannerCard {
+  background: linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 50%, #FFF7ED 100%);
+  border: 1.5px solid #DBEAFE;
+  border-radius: 14px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(8, 102, 232, 0.04);
+}
+
+.bannerLeft {
+  flex: 1;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.bannerTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #FFFFFF;
+  border: 1px solid #FED7AA;
+  color: #EA580C;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  width: fit-content;
+  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.06);
+}
+
+.tagIcon {
+  stroke-width: 2.4;
+  color: #EA580C;
+}
+
+.bannerHeading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.bannerDescription {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* 3 Compact Highlights */
+.highlightsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.highlightChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1E293B;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.checkCircle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ECFDF5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Banner Right Mascot */
+.bannerRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.mascotArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.speechBubble {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 6px 11px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #1E293B;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  white-space: nowrap;
+}
+
+.speechTail {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background-color: #FFFFFF;
+  border-right: 1px solid #CBD5E1;
+  border-top: 1px solid #CBD5E1;
+}
+
+.avatarGlowContainer {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.softGlowBlob {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.22) 0%, rgba(59, 130, 246, 0.25) 50%, transparent 75%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.mascotImg {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 10px rgba(8, 102, 232, 0.15);
+}
+
+@media (max-width: 840px) {
+  .bannerCard {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 18px;
+  }
+  .bannerRight {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

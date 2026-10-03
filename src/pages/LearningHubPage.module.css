@@ -1,0 +1,98 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  margin-top: 64px; /* offset by header */
+  height: calc(100vh - 64px);
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.mapArea {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  background-color: #E0F2FE;
+  overflow: hidden;
+  height: 100%;
+}
+
+.solidBackground {
+  background-image: none;
+  background-color: var(--bg-main, #f0f4f8);
+  overflow-y: auto;
+}
+
+
+.mapPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--primary-blue);
+}
+
+.topLevelBar {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  padding: 10px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 40;
+}
+
+.topLevelInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.topLevelBadge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--secondary-blue, #1456CB);
+}
+
+.topLevelTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark, #1F2937);
+}
+
+.topPlayBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--secondary-blue, #1456CB);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(20, 86, 203, 0.25);
+}
+
+.topPlayBtn:hover {
+  background: #0F43A1;
+  transform: translateY(-1px);
+}
+

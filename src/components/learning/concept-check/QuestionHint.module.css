@@ -1,0 +1,64 @@
+.hintContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hintToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #64748B;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.hintToggle:hover {
+  color: #F59E0B; /* Amber/Orange for the bulb */
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.hintContent {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #FEF3C7; /* Amber-50 */
+  border: 1px solid #FCD34D;
+  border-radius: 8px;
+  color: #92400E; /* Amber-900 */
+  font-size: 0.875rem;
+  line-height: 1.5;
+  width: max-content;
+  max-width: 300px;
+  animation: popUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.hintContent::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  background-color: #FEF3C7;
+  border-right: 1px solid #FCD34D;
+  border-bottom: 1px solid #FCD34D;
+  transform: rotate(45deg);
+}
+
+@keyframes popUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

@@ -1,0 +1,231 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  width: 300px;
+}
+
+.searchInput {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  margin-left: 0.75rem;
+  color: var(--text-primary, #111827);
+}
+
+.createBtn {
+  background-color: var(--accent-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.createBtn:hover {
+  background-color: var(--accent-hover, #2563eb);
+}
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.filterBtn {
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary, #4b5563);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  color: var(--text-primary, #111827);
+}
+
+.filterBtn.active {
+  color: var(--accent-color, #3b82f6);
+  border-bottom-color: var(--accent-color, #3b82f6);
+}
+
+.flashcardArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.flashcard {
+  width: 100%;
+  height: 400px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flashcardInner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcardInner {
+  transform: rotateY(180deg);
+}
+
+.flashcardFront, .flashcardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: var(--bg-card, #ffffff);
+  border-radius: 24px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.flashcardBack {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-main) 100%);
+  border-color: var(--accent-color, #3b82f6);
+}
+
+.cardType {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary, #4b5563);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.flipHint {
+  position: absolute;
+  bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #4b5563);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.concept {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+  line-height: 1.4;
+}
+
+.answer {
+  font-size: 1.5rem;
+  color: var(--text-primary, #111827);
+  line-height: 1.6;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navBtn {
+  background-color: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary, #111827);
+  transition: all 0.2s ease;
+}
+
+.navBtn:hover:not(:disabled) {
+  background-color: var(--bg-main, #f9fafb);
+  border-color: var(--text-secondary, #4b5563);
+}
+
+.navBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.progress {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary, #4b5563);
+}
+
+.knowledgeButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.knowBtn, .dontKnowBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.knowBtn {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border-color: #bbf7d0;
+}
+
+.knowBtn:hover {
+  background-color: #dcfce7;
+}
+
+.dontKnowBtn {
+  background-color: #fef2f2;
+  color: #ef4444;
+  border-color: #fecaca;
+}
+
+.dontKnowBtn:hover {
+  background-color: #fee2e2;
+}

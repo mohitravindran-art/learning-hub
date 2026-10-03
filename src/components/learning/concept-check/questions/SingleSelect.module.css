@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optionCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #FFFFFF;
+}
+
+.optionCard:hover:not(.disabled) {
+  border-color: #2563EB;
+  background: #F8FAFC;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.optionCard.selected {
+  border-color: #2563EB;
+  background: #EFF6FF;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.optionCard.disabled {
+  cursor: default;
+}
+
+.radioGroup {
+  display: flex;
+  align-items: center;
+}
+
+.radio {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #CBD5E1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.optionCard.selected .radio {
+  border-color: #2563EB;
+}
+
+.radioInner {
+  width: 11px;
+  height: 11px;
+  background-color: #2563EB;
+  border-radius: 50%;
+}
+
+.optionText {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1E293B;
+  line-height: 1.45;
+  flex: 1;
+}

@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  background-color: #F8FAFC;
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748B;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.table td {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  color: #475569;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background-color: #F8FAFC;
+}
+
+.missionName {
+  font-weight: 600;
+  color: #0F172A !important;
+}
+
+.score {
+  font-weight: 700;
+  color: #10B981 !important;
+}
+
+.actionBtn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1456CB;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.actionBtn:hover {
+  background-color: #EFF6FF;
+}

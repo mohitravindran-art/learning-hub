@@ -1,0 +1,292 @@
+/* PracticeMatchingNode.module.css - Pixel-perfect match for concept check node design */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.matchingBadge {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #F59E0B;
+  color: #D97706;
+  background: rgba(245, 158, 11, 0.06);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.resetBtn {
+  background: transparent;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.resetBtn:hover {
+  background-color: #F1F5F9;
+  color: #1E293B;
+  border-color: #94A3B8;
+}
+
+.headerTextGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.questionTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.subPrompt {
+  font-size: 0.85rem;
+  color: #0284C7;
+  text-decoration: underline;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* SVG Connections Overlay */
+.svgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.connectionLine {
+  fill: none;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  transition: stroke 0.25s ease;
+}
+
+.lineConnected {
+  stroke: #CBD5E1;
+}
+
+.lineActive {
+  stroke: #3B82F6;
+  stroke-width: 3px;
+  stroke-dasharray: 6;
+  animation: dashMove 1s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));
+}
+
+@keyframes dashMove {
+  from { stroke-dashoffset: 12; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Matching Columns Grid */
+.matchingColumns {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
+  width: 100%;
+  position: relative;
+  z-index: 20;
+  margin-top: 4px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.columnHeader {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.columnHeaderRight {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardRow {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.cardContent {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #1E293B;
+  line-height: 1.45;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: all 0.15s ease;
+}
+
+.leftRow .cardContent {
+  margin-right: -7px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.rightRow .cardContentRight {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #1E293B;
+  line-height: 1.45;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  margin-left: -7px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.cardRow:hover .cardContent,
+.cardRow:hover .cardContentRight {
+  border-color: #CBD5E1;
+  background-color: #F8FAFC;
+}
+
+.cardRowActive .cardContent {
+  border-color: #3B82F6;
+  background-color: #EFF6FF;
+}
+
+.cardRowMatched .cardContent,
+.cardRowMatched .cardContentRight {
+  border-color: #CBD5E1;
+  background-color: #FFFFFF;
+}
+
+/* Connection Nodes (Circular Dots) */
+.connectionNode {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px #CBD5E1, 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  position: relative;
+  z-index: 30;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.connectionNode::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border-radius: 50%;
+}
+
+.connectionNode:hover {
+  background: #94A3B8;
+  transform: scale(1.2);
+}
+
+.nodeActive {
+  background: #3B82F6 !important;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 5px rgba(59, 130, 246, 0.35) !important;
+  transform: scale(1.15);
+}
+
+.nodeMatched {
+  background: #94A3B8;
+}
+
+.nodeTarget:hover {
+  background: #3B82F6 !important;
+  transform: scale(1.3);
+}
+
+/* Footer Status Bar */
+.statusFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.matchCount {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  background: #F1F5F9;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.matchTip {
+  font-size: 0.78rem;
+  color: #64748B;
+  font-weight: 500;
+}

@@ -1,0 +1,341 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 128px);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  padding-bottom: 32px;
+  box-sizing: border-box;
+}
+
+/* 1. Interviewer Bubble (Top-Left above interviewer) */
+.interviewerBubbleWrapper {
+  position: absolute;
+  top: 24px;
+  left: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  z-index: 10;
+  max-width: 270px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.speechBubble {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+  position: relative;
+  color: #0F172A;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.speechBubbleActiveInterviewer {
+  border: 2.5px solid #2563EB !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.28), 0 12px 36px rgba(0, 0, 0, 0.22) !important;
+}
+
+.speechBubbleActiveCandidate {
+  border: 2.5px solid #10B981 !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.28), 0 12px 36px rgba(0, 0, 0, 0.22) !important;
+}
+
+.speechBubbleTail {
+  position: absolute;
+  bottom: -8px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #FFFFFF;
+}
+
+.interviewerBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 6px;
+}
+
+.badgeCircleI {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563EB;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
+}
+
+.badgeLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 0 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.02em;
+}
+
+/* 2. Candidate Bubble (Top-Right above candidate) */
+.candidateBubbleWrapper {
+  position: absolute;
+  top: 24px;
+  right: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 10;
+  max-width: 270px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.candidateBubbleTail {
+  position: absolute;
+  bottom: -8px;
+  right: 24px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #FFFFFF;
+}
+
+.candidateBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 6px;
+}
+
+.badgeCircleC {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #10B981;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.45);
+}
+
+/* 3. Center Interactive Question Card (Resting neatly over the table) */
+.centerQuestionCard {
+  position: relative;
+  z-index: 20;
+  width: min(92%, 580px);
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 24px 28px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  animation: slideUp 0.3s ease-out;
+  transition: all 0.25s ease;
+}
+
+.centerQuestionCardActive {
+  border: 2px solid #2563EB !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cardTag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563EB;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.tagSquareIcon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #2563EB;
+  border-radius: 3px;
+}
+
+.cardHeading {
+  font-size: 21px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 18px 0;
+  line-height: 1.35;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.optionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: 1.5px solid #E2E8F0;
+  background: #FFFFFF;
+  color: #1E293B;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.optionBtn:hover:not(:disabled) {
+  border-color: #93C5FD;
+  background: #F8FAFC;
+  transform: translateY(-1px);
+}
+
+.optionBtnSelected {
+  border-color: #2563EB;
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+.optionBtnCorrect {
+  border-color: #10B981 !important;
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+}
+
+.optionBtnIncorrect {
+  border-color: #EF4444 !important;
+  background: #FEF2F2 !important;
+  color: #991B1B !important;
+}
+
+.feedbackBanner {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.feedbackSuccess {
+  background: #ECFDF5;
+  border: 1.5px solid #A7F3D0;
+  color: #065F46;
+}
+
+.feedbackError {
+  background: #FEF2F2;
+  border: 1.5px solid #FECACA;
+  color: #991B1B;
+}
+
+.continueBtn {
+  margin-top: 18px;
+  width: 100%;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transition: all 0.2s ease;
+}
+
+.continueBtn:hover {
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+}
+
+@media (max-width: 1100px) {
+  .interviewerBubbleWrapper {
+    left: 15%;
+    max-width: 240px;
+  }
+  .candidateBubbleWrapper {
+    right: 15%;
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 860px) {
+  .container {
+    overflow-y: auto;
+    padding: 16px;
+    justify-content: flex-start;
+    gap: 16px;
+    min-height: auto;
+  }
+  .interviewerBubbleWrapper,
+  .candidateBubbleWrapper {
+    position: static;
+    max-width: 100%;
+    width: 100%;
+  }
+  .badgeLabel {
+    color: #0F172A;
+    text-shadow: none;
+  }
+  .centerQuestionCard {
+    width: 100%;
+    position: static;
+    transform: none;
+    margin-top: 12px;
+  }
+}
