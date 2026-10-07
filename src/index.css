@@ -1,18 +1,234 @@
 :root {
-  --primary-blue: #0A2540;
-  --secondary-blue: #1456CB;
-  --accent-orange: #FF6B00;
-  --bg-light-blue: #F3F7FA;
-  --success-green: #10B981;
-  --locked-grey: #9CA3AF;
-  --text-dark: #1F2937;
-  --text-light: #6B7280;
-  --white: #FFFFFF;
-  --font-main: 'Inter', sans-serif;
+  /* ========================================================
+     DESIGN SYSTEM TOKENS (ROOT THEME)
+     ======================================================== */
+  
+  /* Primary Brand Colors */
+  --primary-default: #0065ce;
+  --primary-hover: #005bba;
+  --primary-light: rgba(0, 101, 206, 0.1);
+
+  /* Secondary / Accent Colors */
+  --secondary-default: #f59e0b;
+  --secondary-hover: #e69409;
+  --secondary-light: rgba(245, 158, 11, 0.1);
+
+  /* Status Colors */
+  --warning: #e34646;
+  --warning-hover: #ca4040;
+  --warning-light: rgba(227, 70, 70, 0.1);
+
+  --success: #00d26a;
+  --success-hover: #00bc5f;
+  --success-light: rgba(0, 210, 106, 0.1);
+
+  /* Neutrals & Greys */
+  --grey-dark: #4b5563;
+  --element-grey: #a3a3a6;
+  --white-light: rgba(255, 255, 255, 0.1);
+
+  /* Backgrounds */
+  --bg-page: #ebf2ff;
+  --bg-card: #ffffff;
+
+  /* Typography Colors */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-white: #ffffff;
+
+  /* Typography Family */
+  --font-main: 'Poppins', sans-serif;
+
+  /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+  --header-dark: #0A2540;
+  --primary-blue: var(--primary-default);
+  --secondary-blue: var(--primary-default);
+  --accent-orange: var(--secondary-default);
+  --bg-light-blue: var(--bg-page);
+  --bg-main: var(--bg-page);
+  --success-green: var(--success);
+  --locked-grey: var(--element-grey);
+  --text-dark: var(--text-primary);
+  --text-light: var(--text-secondary);
+  --white: var(--text-white);
 }
+
+/* ========================================================
+   THEME UTILITY CLASSES (Matching Design System)
+   ======================================================== */
+
+.Warning {
+  background: #e34646;
+}
+
+.Success {
+  background: #00d26a;
+}
+
+.WhiteLight {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.WarningLight {
+  background: rgba(227, 70, 70, 0.1);
+}
+
+.SuccessLight {
+  background: rgba(0, 210, 106, 0.1);
+}
+
+.GreyDark {
+  background: #4b5563;
+}
+
+.RedHover {
+  background: #ca4040;
+}
+
+.GreenHover {
+  background: #00bc5f;
+}
+
+.Text__Primary {
+  color: #111827;
+  background: #111827;
+}
+
+.Text__Secondary {
+  color: #6b7280;
+  background: #6b7280;
+}
+
+.Text__White {
+  color: #ffffff;
+  background: #ffffff;
+}
+
+.Secondary__Default {
+  background: #f59e0b;
+}
+
+.Secondary__DefaultLight {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.Primary__Default {
+  background: #0065ce;
+}
+
+.Primary__PrimaryHover {
+  background: #005bba;
+}
+
+.Primary__SecondaryHover {
+  background: #e69409;
+}
+
+.Primary__DefaultLight {
+  background: rgba(0, 101, 206, 0.1);
+}
+
+.Element__Grey {
+  background: #a3a3a6;
+}
+
+.Background__Page {
+  background: #ebf2ff;
+}
+
+.Background__Cardwhite {
+  background: #ffffff;
+}
+
+/* Typography Classes */
+.Text__H1 {
+  font-size: 32px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 35px;
+}
+
+.Text__H2 {
+  font-size: 24px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 35px;
+}
+
+.Text__H3 {
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.Text__H4 {
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.Text__H5 {
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.Text__BodySmall {
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.Text__BodyRegular {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.Text__BodyMedium {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.Text__BodyLarge {
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.Text__ButtonSub {
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.Text__ButtonSmall {
+  font-size: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+/* ========================================================
+   GLOBAL RESETS & APPLICATION BASE
+   ======================================================== */
 
 * {
   box-sizing: border-box;
@@ -22,11 +238,13 @@
 
 body {
   font-family: var(--font-main);
-  background-color: var(--bg-light-blue);
-  color: var(--text-dark);
-  overflow: hidden; /* No browser scrolling */
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {

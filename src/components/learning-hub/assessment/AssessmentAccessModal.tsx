@@ -3,10 +3,10 @@ import {
   X, 
   Camera, 
   Mic, 
-  CheckCircle2, 
-  ChevronDown,
-  ArrowRight,
-  ShieldCheck
+  AlertTriangle, 
+  ChevronDown, 
+  Check, 
+  CheckCircle2 
 } from 'lucide-react';
 import type { AssessmentItem } from '../../../types/assessment';
 import styles from './AssessmentAccessModal.module.css';
@@ -18,15 +18,14 @@ interface AssessmentAccessModalProps {
   onAllowAndContinue: () => void;
 }
 
-const AVAILABLE_MICS = [
-  'Default - Internal Microphone (Built-in)',
-  'MacBook Pro Microphone',
-  'External USB Audio Device',
-];
-
-const AVAILABLE_CAMS = [
+const CAMERA_DEVICES = [
   'FaceTime HD Camera (Built-in)',
   'External USB HD Webcam',
+];
+
+const MIC_DEVICES = [
+  'Default - Internal Microphone (Built-in)',
+  'External USB Audio Device',
 ];
 
 export const AssessmentAccessModal: React.FC<AssessmentAccessModalProps> = ({
@@ -35,106 +34,157 @@ export const AssessmentAccessModal: React.FC<AssessmentAccessModalProps> = ({
   onClose,
   onAllowAndContinue,
 }) => {
-  const [selectedMic, setSelectedMic] = useState(AVAILABLE_MICS[0]);
-  const [selectedCam, setSelectedCam] = useState(AVAILABLE_CAMS[0]);
+  // Device selections
+  const [selectedCamera, setSelectedCamera] = useState<string>('Camera');
+  const [selectedMic, setSelectedMic] = useState<string>('Microphone');
+  const [isCameraDropdownOpen, setIsCameraDropdownOpen] = useState(false);
   const [isMicDropdownOpen, setIsMicDropdownOpen] = useState(false);
-  const [isCamDropdownOpen, setIsCamDropdownOpen] = useState(false);
+
+  // Device permissions / states matching screenshot
+  const [cameraEnabled, setCameraEnabled] = useState(false);
+  const [micEnabled, setMicEnabled] = useState(true); // Matches screenshot: "ENABLED" (orange)
+  const [screenShared, setScreenShared] = useState(false);
+
+  // Audio Testing & volume level (matches screenshot audio bar around 48%)
   const [isTesting, setIsTesting] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(48);
+
+  // Live Streams
   const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
+  const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const dropdownMicRef = useRef<HTMLDivElement>(null);
-  const dropdownCamRef = useRef<HTMLDivElement>(null);
+  const screenVideoRef = useRef<HTMLVideoElement>(null);
+  const camDropdownRef = useRef<HTMLDivElement>(null);
+  const micDropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns on outside click
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownMicRef.current && !dropdownMicRef.current.contains(e.target as Node)) {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (camDropdownRef.current && !camDropdownRef.current.contains(e.target as Node)) {
+        setIsCameraDropdownOpen(false);
+      }
+      if (micDropdownRef.current && !micDropdownRef.current.contains(e.target as Node)) {
         setIsMicDropdownOpen(false);
       }
-      if (dropdownCamRef.current && !dropdownCamRef.current.contains(e.target as Node)) {
-        setIsCamDropdownOpen(false);
-      }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
-  // Request actual camera stream or setup preview
+  // Cleanup media streams on modal close
   useEffect(() => {
     if (!isOpen) {
       if (cameraStream) {
-        cameraStream.getTracks().forEach(t => t.stop());
+        cameraStream.getTracks().forEach((t) => t.stop());
         setCameraStream(null);
       }
+      if (screenStream) {
+        screenStream.getTracks().forEach((t) => t.stop());
+        setScreenStream(null);
+      }
+      setCameraEnabled(false);
+      setScreenShared(false);
+      setIsTesting(false);
+    }
+  }, [isOpen]);
+
+  // Audio testing animation
+  useEffect(() => {
+    if (!isTesting) return;
+
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      const simulated = 46 + Math.sin(step * 0.5) * 28 + (Math.random() * 10 - 5);
+      setVolumeLevel(Math.min(95, Math.max(15, Math.round(simulated))));
+    }, 100);
+
+    const timer = setTimeout(() => {
+      setIsTesting(false);
+      setVolumeLevel(48);
+      clearInterval(interval);
+    }, 4500);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
+  }, [isTesting]);
+
+  // Request actual camera or toggle enable
+  const handleEnableCamera = async () => {
+    if (cameraEnabled && cameraStream) {
+      cameraStream.getTracks().forEach((t) => t.stop());
+      setCameraStream(null);
+      setCameraEnabled(false);
       return;
     }
 
-    let stream: MediaStream | null = null;
-    const initCam = async () => {
-      try {
-        if (navigator.mediaDevices?.getUserMedia) {
-          stream = await navigator.mediaDevices.getUserMedia({
-            video: { width: 320, height: 240 },
-            audio: false
-          });
-          setCameraStream(stream);
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-          }
-        }
-      } catch (err) {
-        console.warn('Camera preview init:', err);
-      }
-    };
-
-    initCam();
-
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach(t => t.stop());
-      }
-    };
-  }, [isOpen]);
-
-  // Animate volume bar when testing
-  useEffect(() => {
-    if (isTesting) {
-      let step = 0;
-      const interval = setInterval(() => {
-        step++;
-        const simulated = 48 + Math.sin(step * 0.4) * 26 + (Math.random() * 12 - 6);
-        setVolumeLevel(Math.min(95, Math.max(15, Math.round(simulated))));
-      }, 100);
-
-      const timeout = setTimeout(() => {
-        setIsTesting(false);
-        setVolumeLevel(48);
-        clearInterval(interval);
-      }, 4000);
-
-      return () => {
-        clearInterval(interval);
-        clearTimeout(timeout);
-      };
-    }
-  }, [isTesting]);
-
-  const handleTestClick = () => {
-    setIsTesting(prev => !prev);
-  };
-
-  const handleEnablePermissions = async () => {
     try {
       if (navigator.mediaDevices?.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        stream.getTracks().forEach(t => t.stop());
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 400, height: 300 },
+          audio: false,
+        });
+        setCameraStream(stream);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+        setCameraEnabled(true);
+        setSelectedCamera(CAMERA_DEVICES[0]);
+      } else {
+        setCameraEnabled(true);
       }
-    } catch (e) {
-      console.warn('Permissions request:', e);
+    } catch (err) {
+      console.warn('Camera request error:', err);
+      // Fallback toggle for demo environments without webcam
+      setCameraEnabled((prev) => !prev);
     }
-    setIsTesting(true);
+  };
+
+  // Test microphone button
+  const handleTestMic = () => {
+    setIsTesting((prev) => !prev);
+  };
+
+  // Toggle microphone
+  const handleToggleMic = () => {
+    setMicEnabled((prev) => !prev);
+  };
+
+  // Request screen sharing
+  const handleShareScreen = async () => {
+    if (screenShared && screenStream) {
+      screenStream.getTracks().forEach((t) => t.stop());
+      setScreenStream(null);
+      setScreenShared(false);
+      return;
+    }
+
+    try {
+      if (navigator.mediaDevices?.getDisplayMedia) {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+        });
+        setScreenStream(stream);
+        if (screenVideoRef.current) {
+          screenVideoRef.current.srcObject = stream;
+        }
+        setScreenShared(true);
+
+        stream.getVideoTracks()[0].onended = () => {
+          setScreenShared(false);
+          setScreenStream(null);
+        };
+      } else {
+        setScreenShared(true);
+      }
+    } catch (err) {
+      console.warn('Screen share request error:', err);
+      // Fallback toggle for environments without displayMedia
+      setScreenShared((prev) => !prev);
+    }
   };
 
   if (!isOpen || !assessment) return null;
@@ -146,215 +196,340 @@ export const AssessmentAccessModal: React.FC<AssessmentAccessModalProps> = ({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        aria-labelledby="system-check-title"
       >
-        {/* Dark Header */}
+        {/* 1. DARK CHARCOAL SLATE HEADER */}
         <div className={styles.modalHeader}>
-          <div className={styles.modalTitleGroup}>
-            <h2 className={styles.modalTitle}>System Check</h2>
-            <span className={styles.modalSubtitleTag}>Assessment Verification</span>
-          </div>
+          <h2 id="system-check-title" className={styles.modalTitle}>
+            System Check
+          </h2>
           <button 
             type="button" 
             className={styles.closeBtn} 
             onClick={onClose}
-            aria-label="Close"
+            aria-label="Close modal"
           >
-            <X size={18} />
+            <X size={20} strokeWidth={2.5} />
           </button>
         </div>
 
-        {/* Modal Body */}
+        {/* 2. MODAL BODY */}
         <div className={styles.modalBody}>
-          {/* Inner Light Grey Card */}
-          <div className={styles.setupCard}>
+          
+          {/* Top Banner: Chrome browser detected */}
+          <div className={styles.browserBanner}>
+            <div className={styles.browserBannerLeft}>
+              {/* Window / Browser Outline Icon matching screenshot */}
+              <svg 
+                className={styles.browserIcon} 
+                width="22" 
+                height="22" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="#1E293B" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="18" rx="3" />
+                <line x1="2" y1="8" x2="22" y2="8" />
+                <circle cx="5" cy="5.5" r="0.75" fill="#1E293B" />
+                <circle cx="8" cy="5.5" r="0.75" fill="#1E293B" />
+                <circle cx="11" cy="5.5" r="0.75" fill="#1E293B" />
+              </svg>
+              <span className={styles.browserText}>Chrome browser detected</span>
+            </div>
+            <div className={styles.greenCheckBadge}>
+              <Check size={14} strokeWidth={3.5} color="#FFFFFF" />
+            </div>
+          </div>
+
+          {/* 3 COLUMNS GRID */}
+          <div className={styles.columnsGrid}>
             
-            {/* Left Side: Dark Testing Screen */}
-            <div className={styles.testScreen}>
-              <div className={styles.videoWrapper}>
+            {/* COLUMN 1: CAMERA */}
+            <div className={styles.columnCard}>
+              {/* Top Preview Area (Black Box) */}
+              <div className={styles.cameraPreviewBox}>
                 {cameraStream ? (
                   <video 
                     ref={videoRef} 
                     autoPlay 
                     playsInline 
                     muted 
-                    className={styles.realVideo} 
+                    className={styles.previewVideo}
                   />
                 ) : (
-                  <div className={styles.simulatedPreview}>
-                    <div className={`${styles.micCircle} ${isTesting ? styles.micCirclePulsing : ''}`}>
-                      <Camera size={26} color="#FFFFFF" />
+                  <div className={styles.previewCenterPlaceholder}>
+                    <div className={styles.previewIconCircle}>
+                      <Camera size={24} color="#FFFFFF" />
                     </div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Webcam Verified</span>
+                    <span className={styles.previewPlaceholderText}>Camera Preview</span>
                   </div>
                 )}
-                <div className={styles.camStatusPill}>
-                  <span className={styles.camDot} />
-                  <span>Proctoring Active</span>
-                </div>
               </div>
 
-              {/* Volume Slider Bar */}
-              <div className={styles.volumeBarContainer}>
-                <div className={styles.volumeTrack}>
-                  <div 
-                    className={styles.volumeProgress} 
-                    style={{ width: `${volumeLevel}%` }}
-                  />
-                </div>
-                <div className={styles.volumeLabels}>
-                  <span>Low Input</span>
-                  <span>High Input</span>
-                </div>
+              {/* Title Row */}
+              <div className={styles.deviceTitleRow}>
+                <Camera size={18} className={styles.iconBlue} />
+                <span className={styles.deviceTitle}>Camera</span>
               </div>
 
-              {/* Test Button */}
-              <button 
-                type="button" 
-                className={`${styles.testBtn} ${isTesting ? styles.testBtnActive : ''}`}
-                onClick={handleTestClick}
+              {/* Alert or Connected Message */}
+              {!cameraEnabled ? (
+                <div className={styles.alertBox}>
+                  <div className={styles.alertHeader}>
+                    <AlertTriangle size={15} className={styles.alertTriangleIcon} />
+                    <span className={styles.alertTitle}>No Device Found</span>
+                  </div>
+                  <p className={styles.alertDesc}>
+                    No camera detected.<br />
+                    Please connect your device and try again.
+                  </p>
+                </div>
+              ) : (
+                <div className={styles.successBox}>
+                  <div className={styles.successHeader}>
+                    <CheckCircle2 size={15} className={styles.successCheckIcon} />
+                    <span className={styles.successTitle}>Camera Connected</span>
+                  </div>
+                  <p className={styles.successDesc}>
+                    Video feed active and verified.
+                  </p>
+                </div>
+              )}
+
+              {/* Device Dropdown */}
+              <div className={styles.dropdownWrapper} ref={camDropdownRef}>
+                <button
+                  type="button"
+                  className={styles.dropdownBtn}
+                  onClick={() => setIsCameraDropdownOpen(!isCameraDropdownOpen)}
+                >
+                  <span className={styles.dropdownSelected}>{selectedCamera}</span>
+                  <ChevronDown size={16} className={styles.dropdownChevron} />
+                </button>
+                {isCameraDropdownOpen && (
+                  <div className={styles.dropdownMenu}>
+                    {CAMERA_DEVICES.map((dev) => (
+                      <div
+                        key={dev}
+                        className={styles.dropdownItem}
+                        onClick={() => {
+                          setSelectedCamera(dev);
+                          setIsCameraDropdownOpen(false);
+                        }}
+                      >
+                        {dev}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Action Button: ENABLE CAMERA */}
+              <button
+                type="button"
+                className={`${styles.actionBtn} ${cameraEnabled ? styles.actionBtnOrange : styles.actionBtnGray}`}
+                onClick={handleEnableCamera}
               >
-                {isTesting ? 'TESTING...' : 'TEST AUDIO & VIDEO'}
+                {cameraEnabled ? 'ENABLED' : 'ENABLE CAMERA'}
               </button>
             </div>
 
-            {/* Right Side: Setup Info */}
-            <div className={styles.setupInfo}>
-              <div>
-                <div className={styles.setupTitleRow}>
-                  <Mic size={18} className={styles.iconOrange} />
-                  <h3 className={styles.setupTitle}>Camera &amp; Audio Setup</h3>
+            {/* COLUMN 2: MICROPHONE */}
+            <div className={styles.columnCard}>
+              {/* Top Preview Area (Dark Slate Box with Volume Meter & Test Button) */}
+              <div className={styles.micPreviewBox}>
+                <div className={styles.previewIconCircle}>
+                  <Mic size={24} color="#FFFFFF" />
                 </div>
 
-                {/* Status Rows */}
-                <div className={styles.statusRows}>
-                  <div className={styles.statusRow}>
-                    <span className={styles.statusLabel}>Camera Access</span>
-                    <div className={styles.statusValue}>
-                      <span>Working</span>
-                      <CheckCircle2 size={16} className={styles.checkIconGreen} />
-                    </div>
-                  </div>
-
-                  <div className={styles.statusRow}>
-                    <span className={styles.statusLabel}>Microphone Access</span>
-                    <div className={styles.statusValue}>
-                      <span>Working</span>
-                      <CheckCircle2 size={16} className={styles.checkIconGreen} />
-                    </div>
-                  </div>
-
-                  <div className={styles.statusRow}>
-                    <span className={styles.statusLabel}>Proctoring Readiness</span>
-                    <div className={styles.statusValue}>
-                      <span>Working</span>
-                      <CheckCircle2 size={16} className={styles.checkIconGreen} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Dropdowns */}
-                <div className={styles.dropdownGroup}>
-                  {/* Mic Dropdown */}
-                  <div className={styles.dropdownContainer} ref={dropdownMicRef}>
+                {/* Volume Meter Bar */}
+                <div className={styles.volumeMeterSection}>
+                  <div className={styles.volumeTrack}>
                     <div 
-                      className={`${styles.dropdownTrigger} ${isMicDropdownOpen ? styles.dropdownTriggerActive : ''}`}
-                      onClick={() => {
-                        setIsMicDropdownOpen(!isMicDropdownOpen);
-                        setIsCamDropdownOpen(false);
-                      }}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <span className={styles.dropdownSelectedText}>
-                        {selectedMic}
-                      </span>
-                      <ChevronDown 
-                        size={16} 
-                        className={`${styles.chevron} ${isMicDropdownOpen ? styles.chevronRotated : ''}`} 
-                      />
-                    </div>
-
-                    {isMicDropdownOpen && (
-                      <div className={styles.dropdownMenu}>
-                        {AVAILABLE_MICS.map((mic, idx) => (
-                          <div 
-                            key={idx}
-                            className={`${styles.dropdownItem} ${selectedMic === mic ? styles.dropdownItemSelected : ''}`}
-                            onClick={() => {
-                              setSelectedMic(mic);
-                              setIsMicDropdownOpen(false);
-                            }}
-                          >
-                            {mic}
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                      className={styles.volumeFill} 
+                      style={{ width: `${volumeLevel}%` }} 
+                    />
+                  </div>
+                  <div className={styles.volumeLabels}>
+                    <span>Low</span>
+                    <span>High</span>
                   </div>
 
-                  {/* Cam Dropdown */}
-                  <div className={styles.dropdownContainer} ref={dropdownCamRef}>
-                    <div 
-                      className={`${styles.dropdownTrigger} ${isCamDropdownOpen ? styles.dropdownTriggerActive : ''}`}
-                      onClick={() => {
-                        setIsCamDropdownOpen(!isCamDropdownOpen);
-                        setIsMicDropdownOpen(false);
-                      }}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <span className={styles.dropdownSelectedText}>
-                        {selectedCam}
-                      </span>
-                      <ChevronDown 
-                        size={16} 
-                        className={`${styles.chevron} ${isCamDropdownOpen ? styles.chevronRotated : ''}`} 
-                      />
-                    </div>
-
-                    {isCamDropdownOpen && (
-                      <div className={styles.dropdownMenu}>
-                        {AVAILABLE_CAMS.map((cam, idx) => (
-                          <div 
-                            key={idx}
-                            className={`${styles.dropdownItem} ${selectedCam === cam ? styles.dropdownItemSelected : ''}`}
-                            onClick={() => {
-                              setSelectedCam(cam);
-                              setIsCamDropdownOpen(false);
-                            }}
-                          >
-                            {cam}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  {/* TEST Button */}
+                  <button
+                    type="button"
+                    className={`${styles.testBtn} ${isTesting ? styles.testBtnActive : ''}`}
+                    onClick={handleTestMic}
+                  >
+                    {isTesting ? 'TESTING' : 'TEST'}
+                  </button>
                 </div>
               </div>
 
-              {/* Enable Permissions Button */}
-              <button 
-                type="button" 
-                className={styles.enableBtn}
-                onClick={handleEnablePermissions}
+              {/* Title Row */}
+              <div className={styles.deviceTitleRow}>
+                <Mic size={18} className={styles.iconOrange} />
+                <span className={styles.deviceTitle}>Microphone</span>
+              </div>
+
+              {/* Alert Box matching screenshot */}
+              <div className={styles.alertBox}>
+                <div className={styles.alertHeader}>
+                  <AlertTriangle size={15} className={styles.alertTriangleIcon} />
+                  <span className={styles.alertTitle}>No Device Found</span>
+                </div>
+                <p className={styles.alertDesc}>
+                  No microphone detected.<br />
+                  Please connect your device and try again.
+                </p>
+              </div>
+
+              {/* Device Dropdown */}
+              <div className={styles.dropdownWrapper} ref={micDropdownRef}>
+                <button
+                  type="button"
+                  className={styles.dropdownBtn}
+                  onClick={() => setIsMicDropdownOpen(!isMicDropdownOpen)}
+                >
+                  <span className={styles.dropdownSelected}>{selectedMic}</span>
+                  <ChevronDown size={16} className={styles.dropdownChevron} />
+                </button>
+                {isMicDropdownOpen && (
+                  <div className={styles.dropdownMenu}>
+                    {MIC_DEVICES.map((dev) => (
+                      <div
+                        key={dev}
+                        className={styles.dropdownItem}
+                        onClick={() => {
+                          setSelectedMic(dev);
+                          setIsMicDropdownOpen(false);
+                        }}
+                      >
+                        {dev}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Action Button: ENABLED (Orange in screenshot) */}
+              <button
+                type="button"
+                className={`${styles.actionBtn} ${micEnabled ? styles.actionBtnOrange : styles.actionBtnGray}`}
+                onClick={handleToggleMic}
               >
-                ENABLE MICROPHONE &amp; CAMERA
+                {micEnabled ? 'ENABLED' : 'ENABLE MICROPHONE'}
+              </button>
+            </div>
+
+            {/* COLUMN 3: SCREEN SHARING */}
+            <div className={styles.columnCard}>
+              {/* Top Preview Area (Black Box) */}
+              <div className={styles.screenPreviewBox}>
+                {screenStream ? (
+                  <video 
+                    ref={screenVideoRef} 
+                    autoPlay 
+                    playsInline 
+                    muted 
+                    className={styles.previewVideo}
+                  />
+                ) : (
+                  <div className={styles.previewCenterPlaceholder}>
+                    <div className={styles.previewIconCircle}>
+                      {/* Screen with Arrow Up Icon matching screenshot */}
+                      <svg 
+                        width="24" 
+                        height="24" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#FFFFFF" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8" />
+                        <path d="M12 17v4" />
+                        <path d="m9 10 3-3 3 3" />
+                        <path d="M12 7v6" />
+                      </svg>
+                    </div>
+                    <span className={styles.previewPlaceholderText}>Screen Preview</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Title Row */}
+              <div className={styles.deviceTitleRow}>
+                {/* Screen Share Blue Icon */}
+                <svg 
+                  width="18" 
+                  height="18" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#0066FF" 
+                  strokeWidth="2.2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <path d="M8 21h8" />
+                  <path d="M12 17v4" />
+                  <path d="m9 10 3-3 3 3" />
+                  <path d="M12 7v6" />
+                </svg>
+                <span className={styles.deviceTitle}>Screen Sharing</span>
+              </div>
+
+              {/* Status Section matching screenshot */}
+              <div className={styles.screenStatusContainer}>
+                <div className={styles.screenStatusRow}>
+                  <span className={styles.screenAccessLabel}>Screen Access</span>
+                  {screenShared ? (
+                    <span className={styles.screenGrantedTag}>
+                      Granted <Check size={14} strokeWidth={3} />
+                    </span>
+                  ) : (
+                    <span className={styles.screenRequiredTag}>
+                      Required <AlertTriangle size={14} className={styles.requiredAlertIcon} />
+                    </span>
+                  )}
+                </div>
+                <p className={styles.screenStatusDesc}>
+                  This assessment requires screen sharing.
+                </p>
+              </div>
+
+              {/* Spacer to align buttons equally */}
+              <div className={styles.columnSpacer} />
+
+              {/* Action Button: SHARE SCREEN */}
+              <button
+                type="button"
+                className={`${styles.actionBtn} ${screenShared ? styles.actionBtnOrange : styles.actionBtnGray}`}
+                onClick={handleShareScreen}
+              >
+                {screenShared ? 'SCREEN SHARED' : 'SHARE SCREEN'}
               </button>
             </div>
 
           </div>
 
-          {/* Modal Footer with Blue START button */}
-          <div className={styles.modalFooter}>
-            <button 
-              type="button" 
-              className={styles.startBtn}
+          {/* 4. BOTTOM ACTION ROW: JOIN NOW */}
+          <div className={styles.bottomFooter}>
+            <button
+              type="button"
+              className={styles.joinNowBtn}
               onClick={onAllowAndContinue}
             >
-              <span>START ASSESSMENT</span>
-              <ArrowRight size={16} />
+              JOIN NOW
             </button>
           </div>
+
         </div>
       </div>
     </div>

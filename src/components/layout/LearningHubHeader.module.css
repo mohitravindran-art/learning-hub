@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   height: 64px;
-  background-color: var(--primary-blue);
+  background-color: var(--header-dark, #0A2540);
   color: var(--white);
   display: flex;
   justify-content: space-between;

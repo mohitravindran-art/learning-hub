@@ -1,12 +1,17 @@
 .navContainer {
   position: fixed;
   bottom: 24px;
-  left: 320px; /* offset by sidebar */
+  left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   z-index: 100;
   pointer-events: none; /* Let clicks pass through container */
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navContainerWithSidebar {
+  left: 330px; /* Offset by sidebar width when open */
 }
 
 .nav {

@@ -18,18 +18,19 @@
 
 .modalContent {
   background-color: #FFFFFF;
-  border-radius: 16px;
+  border-radius: 14px;
   width: 100%;
-  max-width: 840px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  max-width: 890px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   animation: modalScaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalScaleUp {
   from {
     opacity: 0;
-    transform: scale(0.96) translateY(8px);
+    transform: scale(0.97) translateY(8px);
   }
   to {
     opacity: 1;
@@ -37,19 +38,13 @@
   }
 }
 
-/* Dark Header Bar matching Practice System Check */
+/* 1. DARK CHARCOAL SLATE HEADER BAR */
 .modalHeader {
-  background-color: #384252;
-  padding: 16px 24px;
+  background-color: #333F4E;
+  padding: 14px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.modalTitleGroup {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .modalTitle {
@@ -58,15 +53,6 @@
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.01em;
-}
-
-.modalSubtitleTag {
-  background: rgba(255, 255, 255, 0.15);
-  color: #E2E8F0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 999px;
 }
 
 .closeBtn {
@@ -87,368 +73,454 @@
   background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Modal Body */
+/* 2. MODAL BODY */
 .modalBody {
-  padding: 24px;
+  padding: 20px 22px 22px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-/* Inner Light Grey Card */
-.setupCard {
-  background-color: #F4F6F8;
-  border-radius: 14px;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 24px;
-}
-
-/* Left Side: Dark Testing Screen */
-.testScreen {
-  background-color: #3C4756;
-  border-radius: 12px;
-  padding: 20px 20px 18px 20px;
+/* Top Notification Banner: Chrome browser detected */
+.browserBanner {
+  background-color: #F3F4F6;
+  border-radius: 10px;
+  padding: 12px 18px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-height: 270px;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
-  position: relative;
-  overflow: hidden;
 }
 
-/* Video Preview */
-.videoWrapper {
-  width: 100%;
-  height: 155px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #1E293B;
-  position: relative;
+.browserBannerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.browserIcon {
+  flex-shrink: 0;
+}
+
+.browserText {
+  color: #1E293B;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.greenCheckBadge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--success);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
 }
 
-.realVideo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scaleX(-1);
+/* 3. THREE COLUMNS GRID */
+.columnsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
-.simulatedPreview {
+.columnCard {
+  background-color: #F4F5F7;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Preview Boxes */
+.cameraPreviewBox,
+.screenPreviewBox {
+  background-color: #000000;
+  border-radius: 10px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.micPreviewBox {
+  background-color: #475569;
+  border-radius: 10px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+
+.previewCenterPlaceholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  color: #94A3B8;
 }
 
-.micCircle {
-  width: 58px;
-  height: 58px;
+.previewIconCircle {
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
 }
 
-.micCirclePulsing {
-  background: rgba(249, 115, 22, 0.25);
-  box-shadow: 0 0 0 10px rgba(249, 115, 22, 0.2);
-  animation: pulseMic 1.5s infinite;
+.previewPlaceholderText {
+  color: #9CA3AF;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-@keyframes pulseMic {
-  0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
-  70% { box-shadow: 0 0 0 16px rgba(249, 115, 22, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
-}
-
-.camStatusPill {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(4px);
-  color: #FFFFFF;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.camDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #10B981;
-  box-shadow: 0 0 6px #10B981;
-}
-
-/* Volume Bar */
-.volumeBarContainer {
+.previewVideo {
   width: 100%;
-  margin-top: 12px;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Volume Meter Section in Microphone Column */
+.volumeMeterSection {
+  width: 82%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .volumeTrack {
   width: 100%;
-  height: 7px;
-  background: rgba(255, 255, 255, 0.18);
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.55);
   border-radius: 999px;
   overflow: hidden;
 }
 
-.volumeProgress {
+.volumeFill {
   height: 100%;
-  background: linear-gradient(90deg, #10B981 0%, #34D399 70%, #F59E0B 100%);
+  background-color: var(--secondary-default);
   border-radius: 999px;
-  transition: width 0.1s ease-out;
+  transition: width 0.1s ease;
 }
 
 .volumeLabels {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  color: #94A3B8;
-  font-size: 0.68rem;
-  font-weight: 600;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0 1px;
 }
 
-/* Test Button */
 .testBtn {
-  background: transparent;
-  border: 1.5px solid #94A3B8;
+  background-color: var(--primary-default);
   color: #FFFFFF;
-  border-radius: 999px;
-  padding: 6px 28px;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 600;
   letter-spacing: 0.05em;
+  padding: 4px 18px;
+  border-radius: 6px;
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 12px;
+  margin-top: 4px;
+  text-transform: uppercase;
+  transition: all 0.15s ease;
 }
 
 .testBtn:hover {
-  border-color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: var(--primary-hover);
 }
 
 .testBtnActive {
-  border-color: #F97316;
-  color: #F97316;
-  background: rgba(249, 115, 22, 0.12);
+  background-color: var(--primary-hover);
+  opacity: 0.9;
 }
 
-/* Right Side: Setup Info */
-.setupInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.setupTitleRow {
+/* Device Title Row */
+.deviceTitleRow {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+}
+
+.deviceTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.iconBlue {
+  color: var(--primary-default);
 }
 
 .iconOrange {
-  color: #F97316;
+  color: var(--secondary-default);
 }
 
-.setupTitle {
-  font-size: 0.95rem;
+/* Alert Boxes (Pink/Red) */
+.alertBox {
+  background-color: var(--warning-light);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 66px;
+  box-sizing: border-box;
+}
+
+.alertHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.alertTriangleIcon {
+  color: var(--warning);
+  flex-shrink: 0;
+}
+
+.alertTitle {
+  color: var(--warning);
+  font-size: 0.78rem;
   font-weight: 700;
-  color: #0F172A;
+}
+
+.alertDesc {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  line-height: 1.38;
   margin: 0;
 }
 
-/* Status Rows */
-.statusRows {
+/* Success Box (When Connected) */
+.successBox {
+  background-color: var(--success-light);
+  border-radius: 8px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 4px;
+  min-height: 66px;
+  box-sizing: border-box;
 }
 
-.statusRow {
+.successHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #E2E8F0;
+  gap: 6px;
 }
 
-.statusLabel {
-  font-size: 0.8125rem;
-  color: #475569;
-  font-weight: 500;
+.successCheckIcon {
+  color: var(--success);
+  flex-shrink: 0;
 }
 
-.statusValue {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #10B981;
+.successTitle {
+  color: var(--success);
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
-.checkIconGreen {
-  color: #10B981;
+.successDesc {
+  color: #374151;
+  font-size: 0.72rem;
+  line-height: 1.38;
+  margin: 0;
 }
 
-/* Dropdown Container */
-.dropdownGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.dropdownContainer {
+/* Device Dropdown */
+.dropdownWrapper {
   position: relative;
   width: 100%;
 }
 
-.dropdownTrigger {
+.dropdownBtn {
   background-color: #FFFFFF;
-  border: 1px solid #CBD5E1;
+  border: 1px solid #E5E7EB;
   border-radius: 8px;
   padding: 9px 12px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: border-color 0.15s ease;
 }
 
-.dropdownTrigger:hover {
-  border-color: #94A3B8;
+.dropdownBtn:hover {
+  border-color: #CBD5E1;
 }
 
-.dropdownTriggerActive {
-  border-color: #0052FF;
-  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.12);
-}
-
-.dropdownSelectedText {
+.dropdownSelected {
   font-size: 0.8125rem;
-  color: #1E293B;
-  font-weight: 500;
+  font-weight: 700;
+  color: #0F172A;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 6px;
+  max-width: 180px;
 }
 
-.chevron {
-  color: #64748B;
-  transition: transform 0.2s ease;
+.dropdownChevron {
+  color: #374151;
   flex-shrink: 0;
-}
-
-.chevronRotated {
-  transform: rotate(180deg);
 }
 
 .dropdownMenu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   right: 0;
+  margin-top: 4px;
   background-color: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #E5E7EB;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   z-index: 50;
   overflow: hidden;
 }
 
 .dropdownItem {
-  padding: 9px 12px;
-  font-size: 0.8125rem;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: #334155;
   cursor: pointer;
-  transition: background-color 0.12s ease;
+  transition: background-color 0.15s ease;
 }
 
 .dropdownItem:hover {
   background-color: #F1F5F9;
-  color: #0052FF;
+  color: #0066FF;
 }
 
-.dropdownItemSelected {
-  background-color: #EFF6FF;
-  color: #0052FF;
-  font-weight: 600;
-}
-
-/* Enable Full-width Orange Button */
-.enableBtn {
-  background: #F97316;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 999px;
-  padding: 11px 16px;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.28);
-  width: 100%;
-}
-
-.enableBtn:hover {
-  background: #EA580C;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
-}
-
-/* Modal Footer */
-.modalFooter {
+/* Screen Sharing Column Middle Content */
+.screenStatusContainer {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2px 0;
+  min-height: 66px;
+  box-sizing: border-box;
 }
 
-.startBtn {
-  background: #0052FF;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 999px;
-  padding: 12px 36px;
-  font-size: 0.925rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 16px rgba(0, 82, 255, 0.3);
+.screenStatusRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
 }
 
-.startBtn:hover {
-  background: #0045D8;
+.screenAccessLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.screenRequiredTag {
+  color: var(--secondary-hover);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.requiredAlertIcon {
+  color: var(--secondary-default);
+}
+
+.screenGrantedTag {
+  color: var(--success);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.screenStatusDesc {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.columnSpacer {
+  height: 40px; /* Balances the dropdown height of Columns 1 & 2 */
+}
+
+/* Action Buttons */
+.actionBtn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.actionBtnGray {
+  background-color: var(--element-grey);
+  color: #FFFFFF;
+}
+
+.actionBtnGray:hover {
+  background-color: var(--grey-dark);
+}
+
+.actionBtnOrange {
+  background-color: var(--secondary-default);
+  color: #FFFFFF;
+}
+
+.actionBtnOrange:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* 4. BOTTOM FOOTER */
+.bottomFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.joinNowBtn {
+  background-color: var(--primary-default);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 12px var(--primary-light);
+}
+
+.joinNowBtn:hover {
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 91, 186, 0.35);
 }

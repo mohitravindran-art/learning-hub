@@ -11,20 +11,24 @@
 }
 
 .fullPageContainer {
+  height: 100%;
+  width: 100%;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: var(--bg-page);
+  display: flex;
+  flex-direction: column;
 }
 
 /* 1. VIBRANT BLUE HERO CARD */
 .heroCard {
-  background: linear-gradient(135deg, #0052ff 0%, #0036d8 100%);
+  background: linear-gradient(135deg, var(--primary-default) 0%, var(--primary-hover) 100%);
   border-radius: 22px;
   padding: 26px 36px;
   color: #ffffff;
   display: flex;
   align-items: center;
   gap: 28px;
-  box-shadow: 0 12px 32px rgba(0, 82, 255, 0.22);
+  box-shadow: 0 12px 32px var(--primary-light);
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
@@ -79,7 +83,7 @@
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
   margin: 0;
-  max-width: 440px;
+  max-width: 650px;
   font-weight: 400;
 }
 
@@ -205,13 +209,13 @@
 }
 
 .badgeBlue {
-  background: #3b82f6;
-  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+  background: var(--primary-default);
+  box-shadow: 0 4px 10px var(--primary-light);
 }
 
 .badgeAmber {
-  background: #f59e0b;
-  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+  background: var(--secondary-default);
+  box-shadow: 0 4px 10px var(--secondary-light);
 }
 
 .badgePurple {
@@ -252,18 +256,18 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #475569;
+  color: var(--text-secondary);
   background: transparent;
   font-family: inherit;
   transition: all 0.15s ease;
 }
 
 .toggleBtn:hover {
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 .toggleBtnActive {
-  background-color: #0052ff;
+  background-color: var(--primary-default);
   color: #ffffff;
   font-weight: 700;
 }

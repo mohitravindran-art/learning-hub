@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Plus, 
   Hand, 
   TrendingUp, 
   Trophy, 
@@ -19,15 +18,15 @@ import AssessmentAccessModal from './assessment/AssessmentAccessModal';
 import AssessmentFeedbackPage from './assessment/AssessmentFeedbackPage';
 import AssessmentRunner from './assessment/AssessmentRunner';
 import AssessmentSubmitModal from './assessment/AssessmentSubmitModal';
-import CreateInterviewModal from './assessment/CreateInterviewModal';
 import styles from './AssessmentsTab.module.css';
 
 interface TabProps {
   activeTopicId?: string;
   onNavigateTab?: (tabName: string) => void;
+  onRunnerStateChange?: (isRunning: boolean) => void;
 }
 
-export const AssessmentsTab: React.FC<TabProps> = ({ onNavigateTab }) => {
+export const AssessmentsTab: React.FC<TabProps> = ({ onNavigateTab, onRunnerStateChange }) => {
   // Datasets matching Screenshots 1 & 2
   const [currentAssessments, setCurrentAssessments] = useState<AssessmentItem[]>(INITIAL_CURRENT_ASSESSMENTS);
   const [assessmentHistory, setAssessmentHistory] = useState<AssessmentItem[]>(INITIAL_ASSESSMENT_HISTORY);
@@ -40,7 +39,14 @@ export const AssessmentsTab: React.FC<TabProps> = ({ onNavigateTab }) => {
   const [activeFeedbackAssessment, setActiveFeedbackAssessment] = useState<AssessmentItem | null>(null);
   const [activeRunnerAssessment, setActiveRunnerAssessment] = useState<AssessmentItem | null>(null);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+
+  // Notify parent container when runner state changes (fullscreen mode without Learning Hub header/bottom nav)
+  useEffect(() => {
+    onRunnerStateChange?.(Boolean(activeRunnerAssessment));
+    return () => {
+      onRunnerStateChange?.(false);
+    };
+  }, [activeRunnerAssessment, onRunnerStateChange]);
 
   // Handle action click from Table
   const handleAction = (id: string, action: 'start' | 'continue' | 'feedback' | 'details') => {
@@ -88,13 +94,6 @@ export const AssessmentsTab: React.FC<TabProps> = ({ onNavigateTab }) => {
     setIsSubmitModalOpen(false);
     setActiveRunnerAssessment(null);
     setActiveFeedbackAssessment(completedItem);
-  };
-
-  // Create new assessment
-  const handleCreateAssessment = (newItem: AssessmentItem) => {
-    setCurrentAssessments(prev => [newItem, ...prev]);
-    setIsCreateModalOpen(false);
-    setActiveSubTab('current');
   };
 
   // 1. RENDER FEEDBACK PAGE (Matches Screenshot 3)
@@ -192,18 +191,6 @@ export const AssessmentsTab: React.FC<TabProps> = ({ onNavigateTab }) => {
             Assessments help students evaluate their understanding, demonstrate mastery, and track progress over time.
           </p>
         </div>
-
-        {/* Right Single Orange Action Button: CREATE ASSESSMENT + */}
-        <div className={styles.heroActions}>
-          <button 
-            type="button"
-            className={styles.createBtn}
-            onClick={() => setIsCreateModalOpen(true)}
-          >
-            <span>CREATE ASSESSMENT</span>
-            <Plus size={16} strokeWidth={3} />
-          </button>
-        </div>
       </section>
 
       {/* 2. STAT METRICS CARDS ROW (Matches Screenshot 1 & 2) */}
@@ -278,13 +265,6 @@ export const AssessmentsTab: React.FC<TabProps> = ({ onNavigateTab }) => {
         assessment={accessModalAssessment}
         onClose={() => setAccessModalAssessment(null)}
         onAllowAndContinue={handleStartRunnerFromAccessModal}
-      />
-
-      {/* 6. CREATE ASSESSMENT MODAL */}
-      <CreateInterviewModal 
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        onCreate={handleCreateAssessment}
       />
     </div>
   );

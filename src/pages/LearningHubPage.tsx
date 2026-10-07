@@ -20,10 +20,14 @@ const LearningHubInner: React.FC = () => {
   const [playingTopicId, setPlayingTopicId] = useState<string | undefined>(undefined);
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAssessmentRunning, setIsAssessmentRunning] = useState<boolean>(false);
+  const [isStudyModeActive, setIsStudyModeActive] = useState<boolean>(false);
   const [practiceTarget, setPracticeTarget] = useState<{ topicTitle: string; chapterTitle: string }>({
     topicTitle: "What is communication?",
     chapterTitle: "Chapter 01: Communication Basics",
   });
+
+  const isFullscreenMode = isAssessmentRunning || isStudyModeActive;
 
   const handleSelectChapter = (chapterId: string) => {
     setActiveChapterId(chapterId);
@@ -75,24 +79,40 @@ const LearningHubInner: React.FC = () => {
       case 'practice':
         return <PracticeTab activeTopicId={activeChapterId} />;
       case 'assessments':
-        return <AssessmentsTab activeTopicId={activeChapterId} onNavigateTab={(tab) => setActiveTab(tab)} />;
+        return (
+          <AssessmentsTab 
+            activeTopicId={activeChapterId} 
+            onNavigateTab={(tab) => setActiveTab(tab)}
+            onRunnerStateChange={setIsAssessmentRunning}
+          />
+        );
       case 'resources':
         return <ResourcesTab activeTopicId={activeChapterId} />;
       case 'flashcards':
-        return <FlashcardsTab activeTopicId={activeChapterId} />;
+        return (
+          <FlashcardsTab 
+            activeTopicId={activeChapterId} 
+            onStudyModeChange={setIsStudyModeActive}
+          />
+        );
       case 'analytics':
-        return <AnalyticsTab activeTopicId={activeChapterId} />;
+        return (
+          <AnalyticsTab 
+            activeTopicId={activeChapterId} 
+            onNavigateTab={(tab) => setActiveTab(tab)}
+          />
+        );
       default:
         return null;
     }
   };
 
   return (
-    <div className={styles.page}>
-      <LearningHubHeader />
+    <div className={isFullscreenMode ? styles.fullscreenPage : styles.page}>
+      {!isFullscreenMode && <LearningHubHeader />}
       
-      <div className={styles.mainContainer}>
-        {activeTab === 'learn' && (
+      <div className={isFullscreenMode ? styles.fullscreenMainContainer : styles.mainContainer}>
+        {activeTab === 'learn' && !isFullscreenMode && (
           <ModuleSidebar 
             isOpen={isSidebarOpen}
             onClose={() => setIsSidebarOpen(false)}
@@ -103,15 +123,18 @@ const LearningHubInner: React.FC = () => {
           />
         )}
         
-        <main className={`${styles.mapArea} ${activeTab !== 'learn' ? styles.solidBackground : ''}`}>
+        <main className={`${styles.mapArea} ${activeTab !== 'learn' ? styles.solidBackground : ''} ${isFullscreenMode ? styles.fullscreenRunnerArea : ''}`}>
           {renderTabContent()}
         </main>
       </div>
 
-      <BottomLearningNav 
-        activeTab={activeTab} 
-        onSelectTab={setActiveTab} 
-      />
+      {!isFullscreenMode && (
+        <BottomLearningNav 
+          activeTab={activeTab} 
+          onSelectTab={setActiveTab} 
+          isSidebarOpen={activeTab === 'learn' && isSidebarOpen}
+        />
+      )}
 
       <GeneratePracticeModal 
         isOpen={isGenerateModalOpen} 

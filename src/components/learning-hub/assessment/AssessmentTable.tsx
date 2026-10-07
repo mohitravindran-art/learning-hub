@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Info, Clock, Calendar, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Info, Clock, Calendar, CheckCircle2 } from 'lucide-react';
 import type { AssessmentItem } from '../../../types/assessment';
 import styles from './AssessmentTable.module.css';
 
@@ -14,7 +14,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
   onAction,
   isHistory = false,
 }) => {
-  const [activeTooltip, setActiveTooltip] = useState<{ id: string; type: 'assessment' | 'chapter' | 'topic' } | null>(null);
+  const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
 
   if (assessments.length === 0) {
     return (
@@ -22,7 +22,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
         <p className={styles.emptyText}>
           {isHistory
             ? 'No completed assessments yet. Complete an assessment to see detailed feedback and scores.'
-            : 'No active assessments right now. Create an assessment or select one to begin.'}
+            : 'No active assessments right now. Check back later or view your assessment history.'}
         </p>
       </div>
     );
@@ -35,8 +35,6 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
           <thead>
             <tr className={styles.headerRow}>
               <th className={`${styles.th} ${styles.thAssessment}`}>ASSESSMENT</th>
-              <th className={`${styles.th} ${styles.thCenter}`}>CHAPTER</th>
-              <th className={`${styles.th} ${styles.thCenter}`}>TOPIC</th>
               <th className={`${styles.th} ${styles.thCenter}`}>QUESTIONS</th>
               <th className={`${styles.th} ${styles.thCenter}`}>LEVEL</th>
               <th className={`${styles.th} ${styles.thCenter}`}>SCORE / PROGRESS</th>
@@ -59,8 +57,8 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                       <span className={styles.assessmentTitle}>{item.name}</span>
                       <div
                         className={styles.infoBtnWrapper}
-                        onMouseEnter={() => setActiveTooltip({ id: item.id, type: 'assessment' })}
-                        onMouseLeave={() => setActiveTooltip(null)}
+                        onMouseEnter={() => setActiveTooltipId(item.id)}
+                        onMouseLeave={() => setActiveTooltipId(null)}
                       >
                         <button
                           type="button"
@@ -69,73 +67,45 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                         >
                           <Info size={15} />
                         </button>
-                        {activeTooltip?.id === item.id && activeTooltip.type === 'assessment' && (
+                        {activeTooltipId === item.id && (
                           <div className={styles.tooltipBox}>
                             <div className={styles.tooltipTitle}>{item.name}</div>
                             <p className={styles.tooltipText}>{item.description}</p>
                             <div className={styles.tooltipMeta}>
                               Duration: {item.durationMinutes} min &bull; Level: {item.difficulty}
                             </div>
+                            {item.selectedChapters && item.selectedChapters.length > 0 && (
+                              <div className={styles.tooltipSection}>
+                                <div className={styles.tooltipSubhead}>Chapters Covered:</div>
+                                <ul className={styles.tooltipList}>
+                                  {item.selectedChapters.map((ch, idx) => (
+                                    <li key={idx}>{ch}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {item.selectedTopics && item.selectedTopics.length > 0 && (
+                              <div className={styles.tooltipSection}>
+                                <div className={styles.tooltipSubhead}>Topics Covered:</div>
+                                <ul className={styles.tooltipList}>
+                                  {item.selectedTopics.map((tp, idx) => (
+                                    <li key={idx}>{tp}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
                     </div>
                   </td>
 
-                  {/* 2. CHAPTER */}
-                  <td className={`${styles.td} ${styles.tdCenter}`}>
-                    <div
-                      className={styles.scopeWrapper}
-                      onMouseEnter={() => setActiveTooltip({ id: item.id, type: 'chapter' })}
-                      onMouseLeave={() => setActiveTooltip(null)}
-                    >
-                      <button type="button" className={styles.scopePill}>
-                        <span>{item.chapter || `${item.selectedChapters?.length || 2} Chapters`}</span>
-                        <Info size={13} className={styles.scopeInfoIcon} />
-                      </button>
-                      {activeTooltip?.id === item.id && activeTooltip.type === 'chapter' && (
-                        <div className={styles.tooltipBox}>
-                          <div className={styles.tooltipTitle}>Covered Chapters</div>
-                          <ul className={styles.tooltipList}>
-                            {(item.selectedChapters || ['Chapter 01 — Question Understanding', 'Chapter 02 — Thinking Before Speaking']).map((ch, idx) => (
-                              <li key={idx}>{ch}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </td>
-
-                  {/* 3. TOPIC */}
-                  <td className={`${styles.td} ${styles.tdCenter}`}>
-                    <div
-                      className={styles.scopeWrapper}
-                      onMouseEnter={() => setActiveTooltip({ id: item.id, type: 'topic' })}
-                      onMouseLeave={() => setActiveTooltip(null)}
-                    >
-                      <button type="button" className={styles.scopePill}>
-                        <span>{item.topic || `${item.selectedTopics?.length || 3} Topics`}</span>
-                        <Info size={13} className={styles.scopeInfoIcon} />
-                      </button>
-                      {activeTooltip?.id === item.id && activeTooltip.type === 'topic' && (
-                        <div className={styles.tooltipBox}>
-                          <div className={styles.tooltipTitle}>Covered Topics</div>
-                          <ul className={styles.tooltipList}>
-                            {(item.selectedTopics || ['Identify Question Types', 'Understanding Intent', 'Active Listening']).map((tp, idx) => (
-                              <li key={idx}>{tp}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </td>
-
-                  {/* 4. QUESTIONS */}
+                  {/* 2. QUESTIONS */}
                   <td className={`${styles.td} ${styles.tdCenter}`}>
                     <span className={styles.questionsCount}>{item.totalQuestions}</span>
                   </td>
 
-                  {/* 5. LEVEL */}
+                  {/* 3. LEVEL */}
                   <td className={`${styles.td} ${styles.tdCenter}`}>
                     <span
                       className={`${styles.levelBadge} ${
@@ -150,7 +120,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                     </span>
                   </td>
 
-                  {/* 6. SCORE / PROGRESS */}
+                  {/* 4. SCORE / PROGRESS */}
                   <td className={`${styles.td} ${styles.tdCenter}`}>
                     {isHistory || item.status === 'completed' ? (
                       <span className={styles.scoreGreen}>
@@ -173,7 +143,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                     )}
                   </td>
 
-                  {/* 7. STATUS */}
+                  {/* 5. STATUS */}
                   <td className={`${styles.td} ${styles.tdCenter}`}>
                     {item.status === 'in-progress' && (
                       <span className={`${styles.statusPill} ${styles.statusInProgress}`}>
@@ -195,7 +165,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                     )}
                   </td>
 
-                  {/* 8. DATE */}
+                  {/* 6. DATE */}
                   <td className={`${styles.td} ${styles.tdCenter}`}>
                     <span className={styles.dateText}>
                       {isHistory || item.status === 'completed'
@@ -204,16 +174,15 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                     </span>
                   </td>
 
-                  {/* 9. ACTION */}
+                  {/* 7. ACTION */}
                   <td className={`${styles.td} ${styles.tdAction}`}>
                     {isHistory || item.status === 'completed' ? (
                       <button
                         type="button"
-                        className={styles.feedbackBtn}
+                        className={styles.viewBtn}
                         onClick={() => onAction(item.id, 'feedback')}
                       >
-                        <span>View Feedback</span>
-                        <ArrowRight size={14} />
+                        View
                       </button>
                     ) : item.status === 'in-progress' ? (
                       <button
@@ -221,7 +190,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                         className={styles.continueBtn}
                         onClick={() => onAction(item.id, 'continue')}
                       >
-                        Continue Assessment
+                        Continue
                       </button>
                     ) : (
                       <button
@@ -229,7 +198,7 @@ export const AssessmentTable: React.FC<AssessmentTableProps> = ({
                         className={styles.startBtn}
                         onClick={() => onAction(item.id, 'start')}
                       >
-                        Start Assessment
+                        Start
                       </button>
                     )}
                   </td>

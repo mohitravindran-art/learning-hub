@@ -6,6 +6,7 @@ import styles from './BottomLearningNav.module.css';
 interface BottomLearningNavProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
+  isSidebarOpen?: boolean;
 }
 
 const tabs = [
@@ -17,9 +18,13 @@ const tabs = [
   { id: 'analytics', label: 'Analytics', icon: BarChart2 },
 ];
 
-const BottomLearningNav: React.FC<BottomLearningNavProps> = ({ activeTab, onSelectTab }) => {
+const BottomLearningNav: React.FC<BottomLearningNavProps> = ({ 
+  activeTab, 
+  onSelectTab,
+  isSidebarOpen = false 
+}) => {
   return (
-    <div className={styles.navContainer}>
+    <div className={clsx(styles.navContainer, isSidebarOpen && styles.navContainerWithSidebar)}>
       <nav className={styles.nav}>
         {tabs.map((tab) => {
           const Icon = tab.icon;

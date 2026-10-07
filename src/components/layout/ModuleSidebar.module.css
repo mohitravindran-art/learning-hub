@@ -380,7 +380,7 @@
   justify-content: center;
   gap: 8px;
   padding: 10px 14px;
-  background-color: #065FCE;
+  background-color: var(--primary-default);
   color: #FFFFFF;
   border: none;
   border-radius: 8px;
@@ -388,12 +388,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.18s ease;
-  box-shadow: 0 1px 3px rgba(6, 95, 206, 0.25);
+  box-shadow: 0 1px 3px var(--primary-light);
 }
 
 .generatePracticeBtn:hover {
-  background-color: #054EAB;
-  box-shadow: 0 4px 10px rgba(6, 95, 206, 0.35);
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 10px var(--primary-light);
   transform: translateY(-1px);
 }
 
@@ -424,8 +424,8 @@
 }
 
 .subtopicItemActive {
-  background-color: #EFF6FF;
-  color: #0866E8;
+  background-color: var(--primary-light);
+  color: var(--primary-default);
   font-weight: 600;
 }
 
